@@ -7,6 +7,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4400;
 
+let cache = {};
+
 app.use(express.json());
 app.use(cors());
 
@@ -15,9 +17,10 @@ app.listen(port, () => {
 })
 
 app.get("/", async(req, res) => {
+    if (cache != {}) return res.send(cache);
     try {
         //https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
-        const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/map`
+        const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?start=1&limit=500`;
         const options = {
             headers: {
                 'Content-Type': 'application/json',
