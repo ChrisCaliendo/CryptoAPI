@@ -17,7 +17,7 @@ app.listen(port, () => {
 })
 
 app.get("/", async(req, res) => {
-    if (cache != {}) return res.send(cache);
+    if (cache && cache.data) return res.send(cache.data);
     try {
         //https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
         const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?start=1&limit=500`;
@@ -30,6 +30,7 @@ app.get("/", async(req, res) => {
         const response = await fetch(url, options);
         const data = await response.json();
         res.send(data.data);
+        cache = data
     }
     catch (err) {
         console.log(err);
