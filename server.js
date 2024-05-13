@@ -20,7 +20,7 @@ app.get("/", async(req, res) => {
     if (cache && cache.data) return res.send(cache.data);
     try {
         //https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
-        const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?start=1&limit=500`;
+        const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=500`;
         const options = {
             headers: {
                 'Content-Type': 'application/json',
@@ -29,8 +29,16 @@ app.get("/", async(req, res) => {
         }
         const response = await fetch(url, options);
         const data = await response.json();
-        res.send(data.data);
-        cache = data
+        const subset = data.data.map(({ id, name, quote, max_supply, circulating_supply}) => ({ 
+            id: id, 
+            name: name,
+            value: quote.USD.price,
+            maxSupply: max_supply,
+            circulation: circulating_supply,
+            marketCap: quote.USD.market_cap,
+        }));
+        res.send(subset);
+        cache = subset;
     }
     catch (err) {
         console.log(err);
