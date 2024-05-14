@@ -32,13 +32,13 @@ app.get("/", async(req, res) => {
             }
             const response = await fetch(url, options);
             const data = await response.json();
-            const subset = data.data.map(({ id, name, quote, max_supply, circulating_supply}) => ({ 
+            const subset = data.data.map(({ id, name, symbol, quote, max_supply, circulating_supply}) => ({ 
                 id: id, 
                 name: name,
+                symbol: symbol,
                 value: quote.USD.price,
                 maxSupply: max_supply,
                 circulation: circulating_supply,
-                marketCap: quote.USD.market_cap,
                 percentChange: quote.USD.percent_change_24h
             }));
             res.send(subset);
