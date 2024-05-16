@@ -53,6 +53,10 @@ app.get("/load", async(req, res) => {
     
 })
 
+app.get("/cache", async(req, res) => {
+    res.send(loadCache);
+})
+
 app.get("/refresh", async(req, res) => {
 
     try {
