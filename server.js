@@ -23,7 +23,7 @@ app.get("/load", async(req, res) => {
     else{
         try {
             //https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
-            const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=500`;
+            const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=50`;
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ app.get("/refresh", async(req, res) => {
 
     try {
         //https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
-        const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=500`;
+        const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=50`;
         const options = {
             headers: {
                 'Content-Type': 'application/json',
